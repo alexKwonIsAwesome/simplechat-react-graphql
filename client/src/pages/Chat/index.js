@@ -102,6 +102,7 @@ const Wrapper = styled.div`
 const Content = styled.div`
   height: calc(100% - 5rem);
   overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
   padding: 0rem 1.6rem;
   padding-top: 2rem;
 `;

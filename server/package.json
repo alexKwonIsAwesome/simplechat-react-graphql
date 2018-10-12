@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon starter.js"
+    "start": "node starter.js",
+    "dev": "nodemon starter.js"
   },
   "dependencies": {
     "graphql-yoga": "^1.16.2"

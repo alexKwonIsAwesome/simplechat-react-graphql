@@ -9,7 +9,18 @@ import MessageList from '../../components/MessageList';
 
 class Chat extends React.Component {
   state = {
+    nickname: '',
     message: '',
+  }
+
+  componentDidMount() {
+    const nickname = window.prompt('닉네임을 입력해 주세요');
+    if (nickname) {
+      this.setState({ nickname });
+    } else {
+      window.alert('닉네임을 입력하셔야 채팅에 참여하실 수 있습니다');
+      this.props.history.push('/');
+    }
   }
 
   handleMessageChange = (e) => {
@@ -18,10 +29,14 @@ class Chat extends React.Component {
   }
 
   handleSend = (mutate) => () => {
-    const { nickname } = this.props.location.state;
-    const { message } = this.state;
-    mutate({ variables: { nickname, message }});
+    const { nickname, message } = this.state;
+
+    if (message !== '') {
+      mutate({ variables: { nickname, message }});
+      this.setState({ message: '' });
+    }
   }
+  
 
   render() {
     const { message } = this.state;

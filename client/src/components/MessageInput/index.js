@@ -7,6 +7,11 @@ const MessageInput = ({ message, onChange, onSend, ...props }) => {
       <input
         value={message}
         onChange={onChange}
+        onKeyPress={(e) => {
+          if (e.key === 'Enter') {
+            onSend();
+          }
+        }}
         placeholder="메시지를 입력하세요"
       />
       <button onClick={onSend}>보내기</button>

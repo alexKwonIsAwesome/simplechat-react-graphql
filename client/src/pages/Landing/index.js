@@ -3,9 +3,7 @@ import styled from 'styled-components';
 
 class Landing extends React.Component {
   handleButtonClick = () => {
-    const nickname = window.prompt('닉네임을 입력해 주세요');
-    this.props.history.push('/chat', { nickname });
-    
+    this.props.history.push('/chat');
   }
 
   render() {
@@ -43,6 +41,7 @@ const Button = styled.button`
   font-size: 1.6rem;
   font-weight: 700;
   height: 4.5rem;
+  cursor: pointer;
 `;
 
 export default Landing;

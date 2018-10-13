@@ -15,11 +15,11 @@ import App from './App';
 import './global-styles';
 
 const httpLink = new HttpLink({
-  uri: process.env.NODE_ENV === 'development' ? 'http://localhost:4000/graphql' : 'https://server-xosahqnzsw.now.sh/graphql'
+  uri: process.env.NODE_ENV === 'development' ? 'http://localhost:4000/graphql' : 'https://server-epsezcvcir.now.sh/graphql'
 });
 
 const wsLink = new WebSocketLink({
-  uri: process.env.NODE_ENV === 'development' ? 'ws://localhost:4000/graphql' : 'wss://server-xosahqnzsw.now.sh/graphql',
+  uri: process.env.NODE_ENV === 'development' ? 'ws://localhost:4000/graphql' : 'wss://server-epsezcvcir.now.sh/graphql',
   options: {
     reconnect: true
   }

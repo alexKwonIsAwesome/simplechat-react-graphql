@@ -2,7 +2,7 @@ import { GraphQLServer, PubSub } from 'graphql-yoga';
 
 // Messages in-memory
 let messageId = 0;
-const messages = [];
+let messages = [];
 
 const typeDefs = `
   type Query {
@@ -11,6 +11,7 @@ const typeDefs = `
 
   type Mutation {
     addMessage(nickname: String!, message: String!): Message!
+    deleteMessage(id: String!): Message!
   }
 
   type Subscription {
@@ -43,6 +44,21 @@ const resolvers = {
         messageAdded: messageObject
       });
       return messageObject;
+    },
+    deleteMessage: (root, args, context, info) => {
+      const id = parseInt(args.id, 10);
+
+      let targetMessage = null;
+      let newMessages = [];
+      messages.forEach((item) => {
+        if (item.id === id) {
+          targetMessage = item;
+        } else {
+          newMessages.push(item);
+        }
+      });
+      messages = newMessages;
+      return targetMessage;
     }
   },
   Subscription: {

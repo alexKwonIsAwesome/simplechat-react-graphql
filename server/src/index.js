@@ -30,18 +30,21 @@ const MESSAGE_ADDED = 'MESSAGE_ADDED';
 const resolvers = {
   Query: {
     messages: (root, args, context, info) => {
+      // TODO
     }
   },
   Mutation: {
     addMessage: (root, args, context, info) => {
-
+      // TODO
     },
     deleteMessage: (root, args, context, info) => {
+      // TODO
     }
   },
   Subscription: {
     messageAdded: {
       subscribe: (root, args, context, info) => {
+        // TODO
       }
     }
   }

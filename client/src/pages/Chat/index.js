@@ -1,16 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Query, Mutation } from 'react-apollo';
+// import MessageInput from '../../components/MessageInput';
+// import MessageList from '../../components/MessageList';
 
-import MessageInput from '../../components/MessageInput';
-import MessageList from '../../components/MessageList';
-
-import {
-  GET_MESSAGES,
-  ADD_MESSAGE,
-  MESSAGE_ADDED,
-} from './queries';
+// import {
+//   GET_MESSAGES,
+//   ADD_MESSAGE,
+//   MESSAGE_ADDED,
+// } from './queries';
 
 class Chat extends React.Component {
   state = {
@@ -43,52 +41,21 @@ class Chat extends React.Component {
   }
 
   handleSubscribeToMore = (subscribeToMore) => () => {
-    subscribeToMore({
-      document: MESSAGE_ADDED,
-      updateQuery: (prev, { subscriptionData }) => {
-        return {
-          messages: [
-            subscriptionData.data.messageAdded,
-            ...prev.messages,
-          ]
-        }
-      }
-    });
+    // TODO
   }
 
   render() {
     const { message } = this.state;
     return (
       <Wrapper>
-        <Mutation
-          mutation={ADD_MESSAGE}
-        >
-          {(mutate, { data }) => {
-            return (
-              <MessageInput
-                message={message}
-                onChange={this.handleMessageChange}
-                onSend={this.handleSend(mutate)}
-              />
-            );
-          }}
-        </Mutation>
+        {/* <Mutation>
+          TODO
+        </Mutation> */}
 
         <Content>
-          <Query query={GET_MESSAGES}>
-            {({ loading, error, data, subscribeToMore }) => {
-              if (loading) return null;
-              if (error) return null;
-
-              const { messages } = data;
-              return (
-                <MessageList
-                  messages={messages}
-                  subscribeToMore={this.handleSubscribeToMore(subscribeToMore)}
-                />
-              );
-            }}
-          </Query>
+          {/* <Query>
+            TODO
+          </Query> */}
         </Content>
       </Wrapper>
     )

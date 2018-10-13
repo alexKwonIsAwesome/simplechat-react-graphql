@@ -1,29 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import gql from 'graphql-tag';
 
 class MessageList extends React.Component {
-
   componentDidMount() {
-    this.props.subscribeToMore({
-      document: gql`
-        subscription MessageAdded {
-          messageAdded {
-            id
-            nickname
-            message
-          }
-        }
-      `,
-      updateQuery: (prev, { subscriptionData }) => {
-        return {
-          messages: [
-            subscriptionData.data.messageAdded,
-            ...prev.messages,
-          ]
-        }
-      }
-    })
+    this.props.subscribeToMore();
   }
 
   render() {
@@ -32,7 +12,7 @@ class MessageList extends React.Component {
       <div>
         {messages.map((item) => {
           const { id, nickname, message } = item;
-          return <Message key={id}><span><strong>{nickname}</strong>{message}</span></Message>
+            return <Message id={`message-${id}`} key={id}><span><strong>{nickname}</strong>{message}</span></Message>
         })}
       </div>
     )

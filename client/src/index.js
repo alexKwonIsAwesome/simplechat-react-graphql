@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import { ApolloClient } from 'apollo-client';
 import { ApolloProvider } from 'react-apollo';
@@ -8,8 +9,6 @@ import { ApolloLink, split } from 'apollo-link';
 import { HttpLink } from 'apollo-link-http';
 import { WebSocketLink } from 'apollo-link-ws';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-
-import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
 
@@ -42,10 +41,9 @@ const link = ApolloLink.from([terminatingLink]);
 const cache = new InMemoryCache();
 
 const client = new ApolloClient({
-  // uri: 'http://localhost:4000/graphql',
   link,
   cache,
-})
+});
 
 ReactDOM.render(
   <ApolloProvider client={client}>

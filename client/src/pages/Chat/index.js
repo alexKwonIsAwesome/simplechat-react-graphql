@@ -2,10 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Query, Mutation } from 'react-apollo';
-import gql from 'graphql-tag';
 
 import MessageInput from '../../components/MessageInput';
 import MessageList from '../../components/MessageList';
+
+import {
+  GET_MESSAGES,
+  ADD_MESSAGE,
+  MESSAGE_ADDED,
+} from './queries';
 
 class Chat extends React.Component {
   state = {
@@ -36,22 +41,27 @@ class Chat extends React.Component {
       this.setState({ message: '' });
     }
   }
-  
+
+  handleSubscribeToMore = (subscribeToMore) => () => {
+    subscribeToMore({
+      document: MESSAGE_ADDED,
+      updateQuery: (prev, { subscriptionData }) => {
+        return {
+          messages: [
+            subscriptionData.data.messageAdded,
+            ...prev.messages,
+          ]
+        }
+      }
+    });
+  }
 
   render() {
     const { message } = this.state;
     return (
       <Wrapper>
         <Mutation
-          mutation={gql`
-            mutation AddMessage($nickname: String!, $message: String!) {
-              addMessage(nickname: $nickname, message: $message) {
-                id
-                nickname
-                message
-              }
-            }
-          `}
+          mutation={ADD_MESSAGE}
         >
           {(mutate, { data }) => {
             return (
@@ -65,17 +75,7 @@ class Chat extends React.Component {
         </Mutation>
 
         <Content>
-          <Query
-            query={gql`
-              query GetMessages {
-                messages {
-                  id
-                  nickname
-                  message
-                }
-              }
-            `}
-          >
+          <Query query={GET_MESSAGES}>
             {({ loading, error, data, subscribeToMore }) => {
               if (loading) return null;
               if (error) return null;
@@ -84,7 +84,7 @@ class Chat extends React.Component {
               return (
                 <MessageList
                   messages={messages}
-                  subscribeToMore={subscribeToMore}
+                  subscribeToMore={this.handleSubscribeToMore(subscribeToMore)}
                 />
               );
             }}
